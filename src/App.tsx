@@ -1,9 +1,17 @@
-import { useEffect } from "react"
-import { Homepage } from "./pages/Homepage"
-
+import { MainLayout } from "./pages/mainLayout"
+import { Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages/homePage";
+import { ChatPage } from "./pages/chatPage";
+import { ErrorPage } from "./pages/errorPage";
 export const App = () => {
-  useEffect(() => { localStorage.setItem("Theme", "Light") }, []);
   return <div>
-    <Homepage />
+
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route index path="/" element={<HomePage />} />
+        <Route path="/chat/:id" element={<ChatPage />} />
+        <Route path="*" element={<ErrorPage />}></Route>
+      </Route>
+    </Routes>
   </div>
 }
