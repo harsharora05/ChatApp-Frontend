@@ -3,16 +3,60 @@ import { useThemeStore } from "../state/darkState"
 import { CrossIcon } from "../assets/CrossIcon";
 import { useModalStore } from "../state/modalState";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useRoomStore } from "../state/roomState";
+import { useSocketStore } from "../state/webSocketState";
 type formType = {
     roomCode: string
 }
+type dataT = {
+    "type": string,
+    "payload": {
+        "roomId"?: string
+        "message"?: string
+    }
+}
 
 export const JoinModal = () => {
-    const { Theme } = useThemeStore();
     const { toggleModal } = useModalStore();
+    const { setRoomId } = useRoomStore();
+    const navigate = useNavigate();
+    const { socket } = useSocketStore();
+    const joinRoom = (data: dataT) => {
+
+        socket!.onerror = console.error;
+        const newMessage = JSON.stringify(data);
+
+        if (socket!.readyState === WebSocket.OPEN) {
+            socket!.send(newMessage);
+        } else {
+            socket!.onopen = () => {
+                socket!.send(newMessage);
+            };
+        }
+
+        socket!.onmessage = (e) => {
+            const jsonRes = JSON.parse(e.data.toString());
+            console.log(jsonRes);
+
+            if (jsonRes.status == 200) {
+                navigate(`/chat/${jsonRes.roomId}`);
+                setRoomId(jsonRes.roomId);
+                toggleModal();
+            }
+        }
+    }
+    const { Theme } = useThemeStore();
     const { register, handleSubmit, formState: { errors } } = useForm<formType>();
     const onSubmit = (data: formType) => {
-        console.log(data);
+
+        joinRoom({
+            "type": "join",
+            "payload": {
+                "roomId": data.roomCode
+            }
+        });
+
     }
     return <div className={clsx("h-screen w-screen fixed top-0 left-0 bg-black/75  flex justify-center items-center ")}>
         <div className={clsx(Theme === "Light" ? "bg-gray-900/75" : "bg-gray-200/75", "w-105 h-65 rounded-lg ")}>
