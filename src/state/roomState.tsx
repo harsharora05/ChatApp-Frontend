@@ -7,9 +7,9 @@ type roomType = {
 
 
 export const useRoomStore = create<roomType>((set) => ({
-    roomId: localStorage.getItem("roomCode") || "null",
+    roomId: "null",
     setRoomId: (roomId) => {
-        localStorage.setItem("roomCode", roomId);
+        // localStorage.setItem("roomCode", roomId);
         set({ roomId: roomId });
     }
 }));

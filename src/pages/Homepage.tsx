@@ -5,6 +5,7 @@ import { CopyIcon } from "../assets/CopyIcon";
 import { useModalStore } from "../state/modalState";
 import { useRoomStore } from "../state/roomState";
 import { useSocketStore } from "../state/webSocketState";
+import { toast } from "react-toastify";
 
 
 type dataT = {
@@ -39,6 +40,7 @@ export const HomePage = () => {
         socket.onmessage = (e) => {
             const jsonRes = JSON.parse(e.data.toString());
             setRoomId(jsonRes.roomId);
+            toast.success(jsonRes.response);
         };
     };
 
@@ -68,7 +70,7 @@ export const HomePage = () => {
                     <span className="font-bold">Room Code :</span> {roomId}
                 </span>
 
-                <div onClick={() => navigator.clipboard.writeText(roomId)}>
+                <div onClick={() => { navigator.clipboard.writeText(roomId); toast.success("Copied To Clipboard"); }}>
                     <CopyIcon style={clsx("size-8 hover:cursor-pointer", Theme === "Light" ? "text-gray-900" : "text-gray-300")} />
                 </div>
             </div> : <></>}

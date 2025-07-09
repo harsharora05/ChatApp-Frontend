@@ -7,12 +7,16 @@ import { useModalStore } from "../state/modalState";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useSocketStore } from "../state/webSocketState";
+import { ToastContainer } from "react-toastify";
 
 
 export const MainLayout = () => {
     const { setSocket } = useSocketStore();
     useEffect(() => {
         setSocket();
+        localStorage.setItem("name", "");
+        localStorage.setItem("roomCode", "");
+
     }, [])
 
     const { Theme } = useThemeStore();
@@ -21,5 +25,15 @@ export const MainLayout = () => {
         <Navbar />
         <Outlet />
         {!!isModal && <JoinModal />}
+        <ToastContainer
+            position="bottom-right"
+            autoClose={2000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick={true}
+            pauseOnFocusLoss
+            pauseOnHover
+            theme={clsx(Theme === "Light" ? "light" : "dark")}
+        />
     </div >
 }
