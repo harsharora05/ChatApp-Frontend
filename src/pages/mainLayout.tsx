@@ -27,11 +27,10 @@ export const MainLayout = () => {
         {!!isModal && <JoinModal />}
         <ToastContainer
             position="bottom-right"
-            autoClose={2000}
+            autoClose={1000}
             hideProgressBar={true}
             newestOnTop={false}
             closeOnClick={true}
-            pauseOnFocusLoss
             pauseOnHover
             theme={clsx(Theme === "Light" ? "light" : "dark")}
         />

@@ -18,16 +18,21 @@ type dataT = {
 
 export const HomePage = () => {
     const { roomId, setRoomId } = useRoomStore();
-    const { socket } = useSocketStore();
+    const { socket, setSocket } = useSocketStore();
     const createRoom = (data: dataT) => {
+        console.log(socket);
         if (!socket) {
             console.error("WebSocket not initialized");
             return;
         }
+        const newMessage = JSON.stringify(data);
+        if (socket?.readyState == WebSocket.CLOSED) {
+            setSocket();
+            toast.error("Error Occured... Try Again!!!");
+            return;
+        }
 
         socket.onerror = console.error;
-
-        const newMessage = JSON.stringify(data);
 
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(newMessage);
@@ -49,7 +54,7 @@ export const HomePage = () => {
     const { Theme } = useThemeStore();
     const { toggleModal } = useModalStore();
     return <div className="flex justify-center mt-20">
-        <div className={clsx(Theme === "Light" ? "border-gray-900" : "border-gray-300", "flex flex-col items-center w-200 h-100 border-2 border-dashed ")}>
+        <div className={clsx(Theme === "Light" ? "border-gray-900" : "border-gray-300", "flex flex-col items-center w-200 p-10 border-2 border-dashed rounded-xl")}>
             <p className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold text-3xl p-4 font-sans")}>Where Conversations Come Alive.</p>
             <p className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold text-2xl p-4 font-sans")}>No sign-up. No saved chats. Just pure conversation.</p>
             <div className="mt-8 flex gap-4">

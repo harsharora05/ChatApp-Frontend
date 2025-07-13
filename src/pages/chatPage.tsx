@@ -8,6 +8,7 @@ import { useUserStore } from "../state/userState";
 import { CopyIcon } from "../assets/CopyIcon";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { ExitIcon } from "../assets/exitIcon";
 
 
 type dataT = {
@@ -56,6 +57,8 @@ export const ChatPage = () => {
             return;
         }
 
+
+
         socket!.onmessage = (e) => {
             const jsonRes = JSON.parse(e.data);
 
@@ -77,8 +80,15 @@ export const ChatPage = () => {
                 closeSocket(false);
             }
         };
-
+        //browser reload
         window.addEventListener("beforeunload", handleBeforeUnload);
+        //browser back button 
+        window.onpopstate = () => {
+            handleBeforeUnload();
+            toast.warn("Chat Disconnected");
+        }
+
+
         return () => {
             window.removeEventListener("beforeunload", handleBeforeUnload);
             socket.onmessage = null;
@@ -97,20 +107,37 @@ export const ChatPage = () => {
     }
 
     return <div className={clsx("flex flex-col justify-center items-center ")}>
-        <div className="flex justify-between w-120 p-5 ">
+        <div className="flex justify-between w-120 p-2 ">
             <div className="flex items-center  gap-1">
                 <p className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold")}>Room Code: {roomId}  </p>
                 <span onClick={() => { navigator.clipboard.writeText(roomId); toast.success("Copied To Clipboard"); }}><CopyIcon style={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "size-5 hover:cursor-pointer")} /></span>
             </div>
             <p className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold")}>Users: {users}</p>
-            <button className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold", "hover:cursor-pointer")} onClick={() => closeSocket()}>Leave</button>
+            <div onClick={() => closeSocket()} className="flex items-center">
+                <button className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold", "hover:cursor-pointer")} >Leave </button>
+                <span className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300")}> <ExitIcon style="size-4" /></span>
+            </div>
+
         </div>
         <div className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", " border-2 p-2 border-dashed w-140 h-125 flex flex-col rounded-lg")}>
             <div className={clsx("flex-1 border p-3 overflow-y-scroll rounded-lg")}>
                 {messages.map((mes, idx) => (<MessageChips key={idx} chat={mes.chat} from={mes.from} chatOwner={mes.chatOwner} />))}
             </div>
             <div className="flex p-2 gap-3" >
-                <input type="text" placeholder="Message" ref={chatRef} className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "border-2  rounded-md p-2 w-120 focus:outline-0")} />
+                <input type="text" placeholder="Message" ref={chatRef} onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        if (chatRef.current?.value !== null && chatRef.current?.value !== "" && chatRef.current?.value !== " ") {
+                            sendMessage({
+                                "type": "message",
+                                "payload": {
+                                    "roomId": roomId,
+                                    "message": chatRef.current?.value
+                                }
+                            })
+                            chatRef.current!.value = "";
+                        }
+                    }
+                }} className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "border-2  rounded-md p-2 w-120 focus:outline-0")} />
                 <button onClick={() => {
                     if (chatRef.current?.value !== null && chatRef.current?.value !== "" && chatRef.current?.value !== " ") {
                         sendMessage({
