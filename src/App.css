@@ -3,3 +3,12 @@
 * {
   transition: all 1s ease;
 }
+
+@theme {
+  --breakpoint-xxxs: 407px;
+  --breakpoint-xxs: 458px;
+  --breakpoint-xs: 627px;
+  --breakpoint-sm: 687px;
+  --breakpoint-md: 752px;
+  --breakpoint-lg: 857px;
+}

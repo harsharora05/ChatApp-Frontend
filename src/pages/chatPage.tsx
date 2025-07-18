@@ -107,19 +107,19 @@ export const ChatPage = () => {
     }
 
     return <div className={clsx("flex flex-col justify-center items-center ")}>
-        <div className="flex justify-between w-120 p-2 ">
+        <div className="flex justify-between w-80 xxs:w-100 xs:w-120 p-2 mt-10 ">
             <div className="flex items-center  gap-1">
-                <p className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold")}>Room Code: {roomId}  </p>
-                <span onClick={() => { navigator.clipboard.writeText(roomId); toast.success("Copied To Clipboard"); }}><CopyIcon style={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "size-5 hover:cursor-pointer")} /></span>
+                <p onClick={() => { navigator.clipboard.writeText(roomId); toast.success("Copied To Clipboard"); }} className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "text-[10px] xxs:text-sm xs:text-base font-bold")}>Room Code: {roomId}  </p>
+                <span onClick={() => { navigator.clipboard.writeText(roomId); toast.success("Copied To Clipboard"); }}><CopyIcon style={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "size-3 xxs:size-5 hover:cursor-pointer")} /></span>
             </div>
-            <p className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold")}>Users: {users}</p>
+            <p className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold text-[10px] xxs:text-sm xs:text-base ")}>Users: {users}</p>
             <div onClick={() => closeSocket()} className="flex items-center">
-                <button className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold", "hover:cursor-pointer")} >Leave </button>
-                <span className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300")}> <ExitIcon style="size-4" /></span>
+                <button className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "font-bold", "hover:cursor-pointer text-[10px] xxs:text-sm xs:text-base")} >Leave </button>
+                <span className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300")}> <ExitIcon style="size-3 xxs:size-5" /></span>
             </div>
 
         </div>
-        <div className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", " border-2 p-2 border-dashed w-140 h-125 flex flex-col rounded-lg")}>
+        <div className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", " border-2 p-2 border-dashed w-80 xxs:w-100 xs:w-140 h-125 flex flex-col rounded-lg")}>
             <div className={clsx("flex-1 border p-3 overflow-y-scroll rounded-lg")}>
                 {messages.map((mes, idx) => (<MessageChips key={idx} chat={mes.chat} from={mes.from} chatOwner={mes.chatOwner} />))}
             </div>
@@ -137,7 +137,7 @@ export const ChatPage = () => {
                             chatRef.current!.value = "";
                         }
                     }
-                }} className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "border-2  rounded-md p-2 w-120 focus:outline-0")} />
+                }} className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "border-2  rounded-md p-2 w-53 xxs:w-90 xs:w-120 focus:outline-0")} />
                 <button onClick={() => {
                     if (chatRef.current?.value !== null && chatRef.current?.value !== "" && chatRef.current?.value !== " ") {
                         sendMessage({
@@ -149,7 +149,7 @@ export const ChatPage = () => {
                         })
                         chatRef.current!.value = "";
                     }
-                }} className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "border-2 px-5 py-2 rounded-xl hover:cursor-pointer  ")}>Send</button>
+                }} className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "border-2 px-3 xxs:px-5 py-2 rounded-xl hover:cursor-pointer  ")}>Send</button>
             </div>
 
 

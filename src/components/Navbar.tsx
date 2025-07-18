@@ -6,7 +6,7 @@ import { useSocketStore } from "../state/webSocketState";
 export const Navbar = () => {
     const { socket } = useSocketStore();
     const { Theme, toggleTheme } = useThemeStore();
-    return <nav className="flex justify-between px-10 py-8">
+    return <nav className="flex justify-between px-4 xs:px-10 py-8">
         <NavLink to={"/"}> <h1 onClick={() => socket?.close(1000, "User Moved Away")} className={clsx(Theme === "Light" ? "text-gray-900" : "text-gray-300", "hover:cursor-pointer font-bold text-2xl p-4 font-sans")}>WHISPROOM</h1></NavLink>
         <label className="inline-flex items-center cursor-pointer">
             <input type="checkbox" value="" checked={Theme === "Light" ? false : true} onChange={() => { toggleTheme() }} className="sr-only peer" />

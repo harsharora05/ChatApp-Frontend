@@ -71,7 +71,7 @@ export const JoinModal = () => {
 
     }
     return <div className={clsx("h-screen w-screen fixed top-0 left-0 bg-black/75  flex justify-center items-center ")}>
-        <div className={clsx(Theme === "Light" ? "bg-gray-900/75" : "bg-gray-200/75", "w-105 rounded-lg ")}>
+        <div className={clsx(Theme === "Light" ? "bg-gray-900/75" : "bg-gray-200/75", "w-75 xxs:w-105 rounded-lg ")}>
             <div className="flex justify-end p-2" onClick={() => toggleModal()}><CrossIcon style={clsx("size-8 hover:cursor-pointer", Theme === "Light" ? "text-white" : "text-black")} />
             </div>
 

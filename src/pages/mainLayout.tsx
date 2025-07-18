@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useSocketStore } from "../state/webSocketState";
 import { ToastContainer } from "react-toastify";
-
+import "../App.css";
 
 export const MainLayout = () => {
     const { setSocket } = useSocketStore();
@@ -26,13 +26,14 @@ export const MainLayout = () => {
         <Outlet />
         {!!isModal && <JoinModal />}
         <ToastContainer
-            position="bottom-right"
+            position="top-right"
             autoClose={1000}
             hideProgressBar={true}
             newestOnTop={false}
             closeOnClick={true}
             pauseOnHover
             theme={clsx(Theme === "Light" ? "light" : "dark")}
+            toastClassName="!mt-24 mr-2 xs:mr-0 text-sm xs:text-base   !w-50 xs:!w-80"
         />
     </div >
 }
