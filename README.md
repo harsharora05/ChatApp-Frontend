@@ -1,69 +1,36 @@
-# React + TypeScript + Vite
+# WhispRoom 💬
+A real-time chatroom web application built with **React.js**, **WebSocket**, and **Node.js**.  
+WhispRoom enables instant room creation and joining without authentication, providing a smooth and low-latency chatting experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Features
+- ⚡ **Real-time messaging** with WebSocket-based bi-directional communication.  
+- 🏠 **Instant room creation & joining** without authentication.  
+- 🎨 **Responsive and dynamic UI** built in React.js with live updates.  
+- 🔗 **Backend powered by Node.js**, managing connections, room lifecycle, and message broadcasting.  
 
-Currently, two official plugins are available:
+## 🛠️ Tech Stack
+- **Frontend:** React.js  
+- **Backend:** Node.js, WebSocket  
+  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Backend Repository
+👉 [WhispRoom Backend](https://github.com/harsharora05/ChatApp-Backend.git)  
 
-## Expanding the ESLint configuration
+## 🎥 Video Demo
+📺 Watch the demo of **WhispRoom** in action:  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+https://github.com/user-attachments/assets/85a9220a-3afc-43e3-83cb-980e95244bbe
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📦 Getting Started
+### 1. Clone the repository
+```bash
+git clone https://github.com/harsharora05/ChatApp-Frontend.git
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📌 Future Enhancements
+### 🔒 Add user authentication.
+### 💾 Persist chat history.
